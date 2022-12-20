@@ -1,5 +1,4 @@
-require("@nomiclabs/hardhat-waffle");
-
+require("@nomicfoundation/hardhat-toolbox");
 // import and configure dotenv
 require("dotenv").config();
 
@@ -22,7 +21,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 module.exports = {
   solidity: "0.8.4",
   networks: {
-    rinkeby: {
+    goerli: {
       // This value will be replaced on runtime
       url: process.env.STAGING_QUICKNODE_KEY,
       accounts: [process.env.PRIVATE_KEY],

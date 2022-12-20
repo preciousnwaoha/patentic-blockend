@@ -7,6 +7,7 @@ import "hardhat/console.sol";
 contract Patentic {
     uint256 totalPatents;
     uint256 totalMessages;
+    address public owner;
 
     struct PatentContent {
         string patentName;
@@ -34,10 +35,8 @@ contract Patentic {
      */
 
     event NewPatent(address indexed from, uint256 timestamp, PatentContent PatentData);
-    // event PatentsOfAddress(Patent[] patentsOfAddress);
-    // event PatentsAll(Patent[] patentsAll);
+  
     event NewMessage(address indexed from, address indexed to, uint256 timestamp, string text, string patent);
-    // event MessagesOfAddress(Message[] messagesOfAddress);
     
     mapping(address => Patent[]) patentsByAddress;
 
@@ -48,6 +47,7 @@ contract Patentic {
 
 
     constructor() {
+        owner = msg.sender;
         console.log("We have been constructed!");
     }
 
@@ -69,7 +69,7 @@ contract Patentic {
      * Get patents of address on the blockchain
      */
      function getPatentsOnAddress() public view returns (Patent[] memory) {
-        //  emit PatentsOfAddress(patentsByAddress[msg.sender]);
+    
         return patentsByAddress[msg.sender];
      }
 
@@ -81,7 +81,7 @@ contract Patentic {
      * Retrieve all patents with address on the blockchain
      */
     function getAllPatents() public view returns (Patent[] memory) {
-        // emit PatentsAll(patents);
+   
         return patents;
     }
 
@@ -108,7 +108,6 @@ contract Patentic {
       * Get address messages from blockchain
       */
     function getMessagesOnAddress() public view returns (Message[] memory) {
-        // emit MessagesOfAddress(addressMessages[msg.sender]);
         return addressMessages[msg.sender];
     }
 
@@ -119,24 +118,3 @@ contract Patentic {
 }
 
 // npx browserslist@latest --update-db
-
-
-/*
- * Previous Stuff
-
-    event NewPatent(address indexed from, uint256 timestamp, string patentName, string patentText, string patentType);
-
-    
-    function createPatent(string memory _patentName, string memory _patentText, string memory _patentType) public {
-
-        totalPatents += 1;
-        console.log("%s created a Patent!", msg.sender);
-
-        patents.push(Patent(msg.sender, PatentContent(_patentName, _patentText, _patentType), block.timestamp));
-        
-        emit NewPatent(msg.sender, block.timestamp, _patentName, _patentText, _patentType);
-    }
-
-
-*/
-    
